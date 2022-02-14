@@ -4,10 +4,12 @@
   "description": "\"# Storefront-Backend\"",
   "main": "server.js",
   "scripts": {
+    "build": "npx tsc",
+    "jasmine": "jasmine",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "start": "nodemon src/server.ts",
-    "test": "set ENV=test && db-migrate --env test up && tsc && jasmine && db-migrate --env test down"
-    
+    "testDb": "set ENV=test && db-migrate --env test up && tsc && jasmine && db-migrate --env test down",
+    "test": "tsc && jasmine"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
+    "supertest": "^6.2.2",
     "typescript": "^4.5.5"
   },
   "devDependencies": {
@@ -34,13 +37,13 @@
     "@types/jasmine": "^3.10.3",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/pg": "^8.6.4",
+    "@types/supertest": "^2.0.11",
     "jasmine": "^4.0.2",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.4.0",
     "ts-node": "^10.5.0",
     "tsc-watch": "^4.6.0"
-  }
-  ,
+  },
   "bugs": {
     "url": "https://github.com/zaki778/Storefront-Backend/issues"
   },
