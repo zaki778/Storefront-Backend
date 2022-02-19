@@ -66,7 +66,7 @@ var UserStore = /** @class */ (function () {
                         if (queryResult.rowCount > 0)
                             return [2 /*return*/, queryResult.rows];
                         else
-                            return [2 /*return*/, [{ userPassword: 'No' }]];
+                            return [2 /*return*/, [{ user_password: 'No' }]];
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _a.sent();
@@ -92,7 +92,7 @@ var UserStore = /** @class */ (function () {
                         queryResult = _a.sent();
                         dbConnection.release;
                         if (queryResult.rowCount == 0)
-                            return [2 /*return*/, { userPassword: 'No' }];
+                            return [2 /*return*/, { user_password: 'No' }];
                         return [2 /*return*/, queryResult.rows[0]];
                     case 3:
                         error_2 = _a.sent();
@@ -113,14 +113,38 @@ var UserStore = /** @class */ (function () {
                     case 1:
                         dbConnection = _a.sent();
                         sqlQuery = "INSERT INTO users (first_name, last_name, user_password) VALUES ($1, $2, $3) RETURNING *";
-                        hash = bcrypt_1.default.hashSync(user.userPassword + pepper, Number(saltRounds));
-                        return [4 /*yield*/, dbConnection.query(sqlQuery, [user.firstName, user.lastName, hash])];
+                        hash = bcrypt_1.default.hashSync(user.user_password + pepper, Number(saltRounds));
+                        return [4 /*yield*/, dbConnection.query(sqlQuery, [user.first_name, user.last_name, hash])];
                     case 2:
                         queryResult = _a.sent();
                         return [2 /*return*/, queryResult.rows[0]];
                     case 3:
                         error_3 = _a.sent();
                         throw new Error("in the catch and the error is : ".concat(error_3));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserStore.prototype.deleteAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var dbConnection, sqlQuery, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        dbConnection = _a.sent();
+                        sqlQuery = 'TRUNCATE users CASCADE';
+                        return [4 /*yield*/, dbConnection.query(sqlQuery)];
+                    case 2:
+                        _a.sent();
+                        dbConnection.release;
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_4 = _a.sent();
+                        throw new Error("in the catch and the error is : ".concat(error_4));
                     case 4: return [2 /*return*/];
                 }
             });

@@ -106,13 +106,12 @@ var ProductStore = /** @class */ (function () {
                     case 1:
                         dbConnection = _a.sent();
                         sqlQueryI = "SELECT * FROM products WHERE product_name = ($1) AND price = ($2)";
-                        return [4 /*yield*/, dbConnection.query(sqlQueryI, [product.name, product.price])];
+                        return [4 /*yield*/, dbConnection.query(sqlQueryI, [product.product_name, product.price])];
                     case 2:
                         queryResultI = _a.sent();
-                        console.log("counts: " + queryResultI.rowCount);
                         if (!(queryResultI.rowCount == 0)) return [3 /*break*/, 4];
                         sqlQuery = "INSERT INTO products (product_name, price) VALUES ($1, $2) RETURNING *";
-                        return [4 /*yield*/, dbConnection.query(sqlQuery, [product.name, product.price])];
+                        return [4 /*yield*/, dbConnection.query(sqlQuery, [product.product_name, product.price])];
                     case 3:
                         queryResult = _a.sent();
                         return [2 /*return*/, queryResult.rows[0]];

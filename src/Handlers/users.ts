@@ -7,11 +7,11 @@ dotenv.config();
 
 const Store = new UserStore();
 
-const verifyAuthToken = (req: Request, res: Response, next : Function) => {
+const verifyAuthToken =  (req: Request, res: Response, next : Function) => {
     try {
         const authorizationHeader : string = (req.headers.authorization) as string
         const token = authorizationHeader.split(' ')[1]
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET as string)
+        const decoded =  jwt.verify(token, process.env.TOKEN_SECRET as string)
   
         next()
        
@@ -21,35 +21,53 @@ const verifyAuthToken = (req: Request, res: Response, next : Function) => {
 }
 
 
+
 //Token Req
 const index = async(_req : Request, res : Response)=>{
-     const allUsers = await Store.index();
+    try {
+        const allUsers = await Store.index();
 
-     if(allUsers.length == 1 && allUsers[0].userPassword== 'No') res.json('No Users!')
-     else res.json(allUsers);
+        if(allUsers.length == 1 && allUsers[0].user_password== 'No') res.json('No Users!')
+        else res.json(allUsers);
+           
+    } catch (error) {
+        throw new Error (`in the catch and the error is : ${error}`);   
+    }
+     
 }
 
 //Token Req
 const show = async(req : Request, res : Response)=>{
-    const id = Number(req.params.id);
+    try {
+        const id = Number(req.params.id);
     const user = await Store.show(id);
 
-    if(user.userPassword == 'No') res.json('No Such a user!')
+    if(user.user_password == 'No') res.json('No Such a user!')
     else res.json(user);
+        
+    } catch (error) {
+        throw new Error (`in the catch and the error is : ${error}`);
+    }
+    
 }
 
 //Token Req
 const create = async(req : Request, res : Response)=>{
-    const u : User = {
-        firstName : req.body.firstName,
-        lastName : req.body.lastName,
-        userPassword : req.body.password,
+    try {
+        const u : User = {
+            first_name : req.body.firstName,
+            last_name : req.body.lastName,
+            user_password : req.body.password,
+        }
+    
+        const newUser = await Store.create(u);
+        const token = jwt.sign({ user : newUser }, process.env.TOKEN_SECRET as string);
+    
+        res.json(newUser);
+            
+    } catch (error) {
+        throw new Error (`in the catch and the error is : ${error}`);
     }
-
-    const newUser = await Store.create(u);
-    const token = jwt.sign({ user : newUser }, process.env.TOKEN_SECRET as string);
-
-    res.json(token);
     
 }
 
@@ -60,6 +78,6 @@ const create = async(req : Request, res : Response)=>{
 const usersRoutes = (app : express.Application)=>{
     app.get('/users/getAllUsers', verifyAuthToken, index);
     app.get('/users/getOne/:id', verifyAuthToken, show);
-    app.post('/users/createUser', verifyAuthToken,  create);
+    app.post('/users/createUser',  create);
 }
 export default usersRoutes;

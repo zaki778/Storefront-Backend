@@ -56,50 +56,65 @@ var verifyAuthToken = function (req, res, next) {
     }
 };
 var index = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var allProducts;
+    var allProducts, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Store.index()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, Store.index()];
             case 1:
                 allProducts = _a.sent();
                 res.json(allProducts);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                throw new Error("in the catch and the error is : ".concat(error_1));
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, product;
+    var id, product, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 id = Number(req.params.id);
                 return [4 /*yield*/, Store.show(id)];
             case 1:
                 product = _a.sent();
                 res.json(product);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                throw new Error("in the catch and the error is : ".concat(error_2));
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 //token required
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var p, newProduct;
+    var p, newProduct, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 p = {
-                    name: req.body.name,
+                    product_name: req.body.name,
                     price: req.body.price
                 };
                 return [4 /*yield*/, Store.create(p)];
             case 1:
                 newProduct = _a.sent();
-                console.log(newProduct);
                 if (newProduct.price == -1)
                     res.json('Already Exists!');
                 else
                     res.json("Product Added! : " + JSON.stringify(newProduct));
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_3 = _a.sent();
+                throw new Error("in the catch and the error is : ".concat(error_3));
+            case 3: return [2 /*return*/];
         }
     });
 }); };

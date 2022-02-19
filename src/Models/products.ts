@@ -9,7 +9,7 @@ const {saltRounds, pepper} = process.env;
 
 export type Product = {
     id? : number,
-    name? : string,
+    product_name? : string,
     price? : number
 }
 
@@ -47,12 +47,12 @@ export class ProductStore {
             const dbConnection = await Client.connect();
 
             const sqlQueryI = "SELECT * FROM products WHERE product_name = ($1) AND price = ($2)"
-            const queryResultI = await dbConnection.query(sqlQueryI, [product.name, product.price]);
+            const queryResultI = await dbConnection.query(sqlQueryI, [product.product_name, product.price]);
 
-            console.log("counts: " + queryResultI.rowCount);
+            
             if(queryResultI.rowCount == 0){
                 const sqlQuery = "INSERT INTO products (product_name, price) VALUES ($1, $2) RETURNING *";
-                const queryResult = await dbConnection.query(sqlQuery, [product.name, product.price]);
+                const queryResult = await dbConnection.query(sqlQuery, [product.product_name, product.price]);
               return queryResult.rows[0];
                 
             }
