@@ -66,14 +66,14 @@ var OrderStore = /** @class */ (function () {
                         queryResultII = _a.sent();
                         console.log("queryII: " + queryResultII.rows[0]);
                         if (queryResultII.rows[0])
-                            return [2 /*return*/, { userId: -2 }];
+                            return [2 /*return*/, { user_id: -2 }];
                         if (!queryResultI.rows[0]) return [3 /*break*/, 5];
                         sqlQuery = "INSERT INTO orders (user_id, current_status) VALUES ($1, $2) RETURNING *";
                         return [4 /*yield*/, dbConnection.query(sqlQuery, [userId, 'active'])];
                     case 4:
                         queryResult = _a.sent();
                         return [2 /*return*/, queryResult.rows[0]];
-                    case 5: return [2 /*return*/, { userId: -1 }];
+                    case 5: return [2 /*return*/, { user_id: -1 }];
                     case 6:
                         error_1 = _a.sent();
                         throw new Error("in the catch and the error is : ".concat(error_1));
@@ -121,28 +121,23 @@ var OrderStore = /** @class */ (function () {
     };
     OrderStore.prototype.end = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var dbConnection, sqlQuery, sqlQueryI, queryResultI, activeOrderId, queryResult, error_3;
+            var dbConnection, sqlQuery, queryResult, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 4, , 5]);
+                        _a.trys.push([0, 3, , 4]);
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         dbConnection = _a.sent();
-                        sqlQuery = "UPDATE orders SET current_status = 'finished' WHERE id = ($1) RETURNING *";
-                        sqlQueryI = "SELECT id FROM orders WHERE current_status = 'active'";
-                        return [4 /*yield*/, dbConnection.query(sqlQueryI)];
+                        sqlQuery = "UPDATE orders SET current_status = 'finished' WHERE id IN (SELECT id FROM orders WHERE current_status = 'active') RETURNING *";
+                        return [4 /*yield*/, dbConnection.query(sqlQuery)];
                     case 2:
-                        queryResultI = _a.sent();
-                        activeOrderId = queryResultI.rows[0].id;
-                        return [4 /*yield*/, dbConnection.query(sqlQuery, [activeOrderId])];
-                    case 3:
                         queryResult = _a.sent();
                         return [2 /*return*/, queryResult.rows[0]];
-                    case 4:
+                    case 3:
                         error_3 = _a.sent();
                         throw new Error("in the catch and the error is : ".concat(error_3));
-                    case 5: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

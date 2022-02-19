@@ -56,29 +56,35 @@ var verifyAuthToken = function (req, res, next) {
     }
 };
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var userId, createdOrder;
+    var userId, createdOrder, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 userId = Number(req.body.id);
                 return [4 /*yield*/, Store.create(userId)];
             case 1:
                 createdOrder = _a.sent();
-                if (createdOrder.userId == -1)
+                if (createdOrder.user_id == -1)
                     res.json('No Such A user!');
-                else if (createdOrder.userId == -2)
+                else if (createdOrder.user_id == -2)
                     res.json('You have an already existing order!');
                 else
                     res.json(createdOrder);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                throw new Error("in the catch and the error is : ".concat(error_1));
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 var addProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var productId, quantity, addedProduct;
+    var productId, quantity, addedProduct, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 productId = req.body.id;
                 quantity = req.body.quantity;
                 return [4 /*yield*/, Store.addProduct(productId, quantity)];
@@ -92,15 +98,24 @@ var addProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                     res.json('Product added : ' + JSON.stringify(addedProduct));
                 }
                 ;
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                throw new Error("in the catch and the error is : ".concat(error_2));
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 var finishOrder = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var finishedOrder;
     return __generator(this, function (_a) {
-        finishedOrder = Store.end();
-        res.json(finishedOrder);
+        try {
+            finishedOrder = Store.end();
+            res.json(finishedOrder);
+        }
+        catch (error) {
+            throw new Error("in the catch and the error is : ".concat(error));
+        }
         return [2 /*return*/];
     });
 }); };
