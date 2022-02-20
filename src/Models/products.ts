@@ -9,8 +9,8 @@ const {saltRounds, pepper} = process.env;
 
 export type Product = {
     id? : number,
-    product_name? : string,
-    price? : number
+    product_name? : string | null,
+    price? : number | null
 }
 
 export class ProductStore {
@@ -62,6 +62,34 @@ export class ProductStore {
             throw new Error (`in the catch and the error is : ${error}`);
         }
     }
+
+    async deleteAll() : Promise<void>{
+        try {
+            const dbConnection = await Client.connect();
+            const sqlQuery = 'TRUNCATE users CASCADE';
+             await dbConnection.query(sqlQuery);
+            dbConnection.release;
+            
+        } catch (error) {
+            throw new Error (`in the catch and the error is : ${error}`);
+        }
+    
+
+
+    }
+
+    async createProduct() : Promise<void>{
+        try {
+            const dbConnection = await Client.connect();
+            const sqlQuery = 'INSERT INTO products (product_name, price) SELECT ($1), ($2) WHERE NOT EXISTS (SELECT id FROM products WHERE id =1)'
+            await dbConnection.query(sqlQuery, ['milk', 10]);
+            
+        } catch (error) {
+            throw new Error (`in the catch and the error is : ${error}`);
+        }
+    }
+    
+    
     
     
     

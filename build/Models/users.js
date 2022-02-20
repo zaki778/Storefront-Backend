@@ -150,6 +150,29 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
+    UserStore.prototype.createUser = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var dbConnection, sqlQuery, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        dbConnection = _a.sent();
+                        sqlQuery = 'INSERT INTO users (first_name, last_name) SELECT ($1), ($2) WHERE NOT EXISTS (SELECT id FROM users WHERE id =1)';
+                        return [4 /*yield*/, dbConnection.query(sqlQuery, ['m', 'z'])];
+                    case 2:
+                        _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_5 = _a.sent();
+                        throw new Error("in the catch and the error is : ".concat(error_5));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     return UserStore;
 }());
 exports.UserStore = UserStore;

@@ -1,10 +1,23 @@
+import dotenv from 'dotenv';
 import supertest from 'supertest';
 import app from '../server';
 
+dotenv.config();
+
+
 const request = supertest(app);
+
+
 
 describe('End point testing for users routes', () => {
 
+    // it('Create testing', async () => {
+    //     const response = await request.post('/users/createUser');
+    //     expect(response.status).toBe(200);
+        
+    // });
+    
+        
     it('Index testing', async () => {
         const response = await request.get('/users/getAllUsers');
         expect(response.status).toBe(200);
@@ -17,23 +30,26 @@ describe('End point testing for users routes', () => {
         
     });
 
-    it('Create testing', async () => {
-        const response = await request.post('/users/createUser');
-        expect(response.status).toBe(200);
+    
+
+});
+
+describe('End point testing for products routes', ()=>{
         
-    });
 
-    describe('End point testing for products routes', ()=>{
 
-        it('Index testing', async()=>{
-            const response = await request.get('/products/getAll');
-            expect(response.status).toBe(200);
-        });
+          
 
-        it('Show testing', async()=>{
-            const response = await request.get('/products/getOne/1');
-            expect(response.status).toBe(200);
-        });
+        // it('Index testing', async()=>{
+        //     const response = await request.get('/products/getAll');
+        //     expect(response.status).toBe(200);
+        // });
+
+        // it('Show testing', async()=>{
+        //     const response = await request.get('/products/getOne/1');
+        //     expect(response.status).toBe(200);
+        // });
+
 
         it('Create testing', async()=>{
             const response = await request.post('/products/createProduct');
@@ -46,6 +62,8 @@ describe('End point testing for users routes', () => {
 
     describe('End point testing for orders routes', ()=>{
 
+        
+          
         it('Initiates an order testing', async()=>{
             const response = await request.post('/orders/createOrder');
             expect(response.status).toBe(200);
@@ -66,11 +84,3 @@ describe('End point testing for users routes', () => {
         
     });
     
-
-
-
-    
-
-
-
-});
