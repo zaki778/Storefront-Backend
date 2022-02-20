@@ -32,6 +32,12 @@ SALT_ROUNDS = 10
 pepper = 1111
 TOKEN_SECRET='3322840A!'
 
+#### NOTE THAT:
+Admin is the only one allowed show all users, show specific user and create new product. its token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJmaXJzdF9uYW1lIjoiYWRtaW4iLCJsYXN0X25hbWUiOiJhZG1pbiIsInVzZXJfcGFzc3dvcmQiOiIkMmIkMTAkLjZpNnFqaUNTNTByTHJOVjRlUzNhdWlvZlA1WG5JcnlHM2dxOEU0b3p0cnNCV0kxQ3dxWDYifSwiaWF0IjoxNjQ0ODY5MTA0fQ.B-TlOwi1uU8nTgCMpk3ew8Rnh7_wakNuS63lwP05FD4
+
+The user who created the order himself is the only one possible to add to the cart.
+w
+
 
 
 

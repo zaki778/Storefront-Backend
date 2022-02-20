@@ -16,8 +16,10 @@ const verifyAuthToken =  (req: Request, res: Response, next : Function) => {
             const authorizationHeader : string =   (req.headers.authorization) as string
             const token = authorizationHeader.split(' ')[1]
             const decoded =  jwt.verify(token, process.env.TOKEN_SECRET as string)
+            const {user} = JSON.parse(atob(token.split('.')[1]));
             
-  
+            if(user.id !== userId) throw new Error('User id does not match!')
+
         next()
        
     } catch (error) {
