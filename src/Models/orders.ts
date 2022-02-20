@@ -29,7 +29,8 @@ export class OrderStore{
 
             const sqlQueryII = 'SELECT * FROM orders WHERE user_id = ($1) AND current_status = ($2)'
             const queryResultII= await dbConnection.query(sqlQueryII, [userId, 'active']);
-            console.log("queryII: " + queryResultII.rows[0]);
+
+            
             if(queryResultII.rows[0]) return {user_id : -2};
             if(queryResultI.rows[0] ){    
             const sqlQuery = "INSERT INTO orders (user_id, current_status) VALUES ($1, $2) RETURNING *";
@@ -90,12 +91,6 @@ export class OrderStore{
             const dbConnection = await Client.connect();
             const sqlQuery = "UPDATE orders SET current_status = 'finished' WHERE id IN (SELECT id FROM orders WHERE current_status = 'active') RETURNING *";
 
-            // const sqlQueryI = "SELECT id FROM orders WHERE current_status = 'active'";
-            // const queryResultI = await dbConnection.query(sqlQueryI);
-            // const activeOrderId = queryResultI.rows[0].id;
-
-            // const queryResult = await dbConnection.query(sqlQuery, [activeOrderId]);
-
             const queryResult = await dbConnection.query(sqlQuery);
                 
             return queryResult.rows[0];
@@ -106,6 +101,20 @@ export class OrderStore{
         
 
     }
+
+    async deleteAll() : Promise<void>{
+        try {
+            const dbConnection = await Client.connect();
+            const sqlQuery = 'TRUNCATE users CASCADE';
+             await dbConnection.query(sqlQuery);
+            dbConnection.release;
+            
+        } catch (error) {
+            throw new Error (`in the catch and the error is : ${error}`);
+        }
+    
+    }
+    
 
     
     

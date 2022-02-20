@@ -12,9 +12,11 @@ const Store = new OrderStore();
 
 const verifyAuthToken =  (req: Request, res: Response, next : Function) => {
      try {
+            const userId = Number(req.body.id);
             const authorizationHeader : string =   (req.headers.authorization) as string
             const token = authorizationHeader.split(' ')[1]
             const decoded =  jwt.verify(token, process.env.TOKEN_SECRET as string)
+            
   
         next()
        
@@ -63,7 +65,7 @@ const addProduct = async(req : Request, res : Response)=>{
 const finishOrder = async (_req : Request, res : Response)=>{
     try {
         const finishedOrder = Store.end();
-        res.json(finishedOrder);
+        res.json(JSON.stringify(finishedOrder));
       
     } catch (error) {
         throw new Error (`in the catch and the error is : ${error}`);
@@ -71,6 +73,9 @@ const finishOrder = async (_req : Request, res : Response)=>{
     }
     
 }
+
+
+
 
 
 const ordersRoutes =(app : express.Application)=>{

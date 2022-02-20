@@ -46,6 +46,7 @@ dotenv_1.default.config();
 var Store = new orders_1.OrderStore();
 var verifyAuthToken = function (req, res, next) {
     try {
+        var userId = Number(req.body.id);
         var authorizationHeader = (req.headers.authorization);
         var token = authorizationHeader.split(' ')[1];
         var decoded = jsonwebtoken_1.default.verify(token, process.env.TOKEN_SECRET);
@@ -111,7 +112,7 @@ var finishOrder = function (_req, res) { return __awaiter(void 0, void 0, void 0
     return __generator(this, function (_a) {
         try {
             finishedOrder = Store.end();
-            res.json(finishedOrder);
+            res.json(JSON.stringify(finishedOrder));
         }
         catch (error) {
             throw new Error("in the catch and the error is : ".concat(error));

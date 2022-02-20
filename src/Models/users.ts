@@ -59,6 +59,7 @@ export class UserStore{
                 user.user_password + pepper, 
                 Number(saltRounds)
              );
+             
             const queryResult = await dbConnection.query(sqlQuery, [user.first_name, user.last_name, hash]);
 
             return queryResult.rows[0];
@@ -79,6 +80,20 @@ export class UserStore{
         }
     
     }
+
+    async createUser() : Promise<void>{
+        try {
+            const dbConnection = await Client.connect();
+            const sqlQuery = 'INSERT INTO users (first_name, last_name) SELECT ($1), ($2) WHERE NOT EXISTS (SELECT id FROM users WHERE id =1)'
+            await dbConnection.query(sqlQuery, ['m', 'z']);
+            
+        } catch (error) {
+            throw new Error (`in the catch and the error is : ${error}`);
+        }
+    }
+
+    
+
     
     
     

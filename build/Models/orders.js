@@ -64,7 +64,6 @@ var OrderStore = /** @class */ (function () {
                         return [4 /*yield*/, dbConnection.query(sqlQueryII, [userId, 'active'])];
                     case 3:
                         queryResultII = _a.sent();
-                        console.log("queryII: " + queryResultII.rows[0]);
                         if (queryResultII.rows[0])
                             return [2 /*return*/, { user_id: -2 }];
                         if (!queryResultI.rows[0]) return [3 /*break*/, 5];
@@ -137,6 +136,30 @@ var OrderStore = /** @class */ (function () {
                     case 3:
                         error_3 = _a.sent();
                         throw new Error("in the catch and the error is : ".concat(error_3));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderStore.prototype.deleteAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var dbConnection, sqlQuery, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        dbConnection = _a.sent();
+                        sqlQuery = 'TRUNCATE users CASCADE';
+                        return [4 /*yield*/, dbConnection.query(sqlQuery)];
+                    case 2:
+                        _a.sent();
+                        dbConnection.release;
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_4 = _a.sent();
+                        throw new Error("in the catch and the error is : ".concat(error_4));
                     case 4: return [2 /*return*/];
                 }
             });
