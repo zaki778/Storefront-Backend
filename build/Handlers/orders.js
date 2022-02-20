@@ -50,6 +50,9 @@ var verifyAuthToken = function (req, res, next) {
         var authorizationHeader = (req.headers.authorization);
         var token = authorizationHeader.split(' ')[1];
         var decoded = jsonwebtoken_1.default.verify(token, process.env.TOKEN_SECRET);
+        var user = JSON.parse(atob(token.split('.')[1])).user;
+        if (user.id !== userId)
+            throw new Error('User id does not match!');
         next();
     }
     catch (error) {

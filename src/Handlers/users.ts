@@ -12,6 +12,10 @@ const verifyAuthToken =  (req: Request, res: Response, next : Function) => {
         const authorizationHeader : string = (req.headers.authorization) as string
         const token = authorizationHeader.split(' ')[1]
         const decoded =  jwt.verify(token, process.env.TOKEN_SECRET as string)
+        const {user} = JSON.parse(atob(token.split('.')[1]));
+        if(user.first_name !== 'admin' || user.last_name !== 'admin')
+        throw new Error('Admin is the only one to create new Product')
+  
   
         next()
        
@@ -63,7 +67,7 @@ const create = async(req : Request, res : Response)=>{
         const newUser = await Store.create(u);
         const token = jwt.sign({ user : newUser }, process.env.TOKEN_SECRET as string);
     
-        res.json(newUser);
+        res.json(token);
             
     } catch (error) {
         throw new Error (`in the catch and the error is : ${error}`);
