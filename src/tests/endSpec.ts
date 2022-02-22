@@ -11,11 +11,6 @@ const request = supertest(app);
 
 describe('End point testing for users routes', () => {
 
-    it('Create testing', async () => {
-        const response = await request.post('/users/createUser');
-        expect(response.status).toBe(200);
-        
-    });
     
         
     it('Index testing', async () => {
