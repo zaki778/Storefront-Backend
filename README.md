@@ -41,7 +41,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo0LCJmaXJzdF9uYW1lIjoiYWR
 
 For orders Authentication : 
 - Only the user able to acess orders end points is the user that its token sent with the link.
-- Only admin user should deal with users end point (show, index and create) and only the admin should able to create new product.
+- Only admin user should deal with users end point (show, index) and only the admin should able to create new product.
 - Any user can access (index, show) for products endpoints.
 
 
