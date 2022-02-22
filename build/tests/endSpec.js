@@ -45,10 +45,18 @@ var server_1 = __importDefault(require("../server"));
 dotenv_1.default.config();
 var request = (0, supertest_1.default)(server_1.default);
 describe('End point testing for users routes', function () {
-    // it('Create testing', async () => {
-    //     const response = await request.post('/users/createUser');
-    //     expect(response.status).toBe(200);
-    // });
+    it('Create testing', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.post('/users/createUser')];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     it('Index testing', function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
@@ -75,14 +83,30 @@ describe('End point testing for users routes', function () {
     }); });
 });
 describe('End point testing for products routes', function () {
-    // it('Index testing', async()=>{
-    //     const response = await request.get('/products/getAll');
-    //     expect(response.status).toBe(200);
-    // });
-    // it('Show testing', async()=>{
-    //     const response = await request.get('/products/getOne/1');
-    //     expect(response.status).toBe(200);
-    // });
+    it('Index testing', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/products/getAll')];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('Show testing', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get('/products/getOne/1')];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     it('Create testing', function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {

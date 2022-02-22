@@ -11,11 +11,11 @@ const request = supertest(app);
 
 describe('End point testing for users routes', () => {
 
-    // it('Create testing', async () => {
-    //     const response = await request.post('/users/createUser');
-    //     expect(response.status).toBe(200);
+    it('Create testing', async () => {
+        const response = await request.post('/users/createUser');
+        expect(response.status).toBe(200);
         
-    // });
+    });
     
         
     it('Index testing', async () => {
@@ -40,15 +40,15 @@ describe('End point testing for products routes', ()=>{
 
           
 
-        // it('Index testing', async()=>{
-        //     const response = await request.get('/products/getAll');
-        //     expect(response.status).toBe(200);
-        // });
+        it('Index testing', async()=>{
+            const response = await request.get('/products/getAll');
+            expect(response.status).toBe(200);
+        });
 
-        // it('Show testing', async()=>{
-        //     const response = await request.get('/products/getOne/1');
-        //     expect(response.status).toBe(200);
-        // });
+        it('Show testing', async()=>{
+            const response = await request.get('/products/getOne/1');
+            expect(response.status).toBe(200);
+        });
 
 
         it('Create testing', async()=>{

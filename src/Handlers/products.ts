@@ -24,9 +24,22 @@ const verifyAuthToken =  (req: Request, res: Response, next : Function) => {
     }
 }
 
+const verifyAuthTokenI =  (req: Request, res: Response, next : Function) => {
+    try {
+        const authorizationHeader : string = (req.headers.authorization) as string
+        const token = authorizationHeader.split(' ')[1]
+        const decoded =  jwt.verify(token, process.env.TOKEN_SECRET as string)
+        
+        next()
+       
+    } catch (error) {
+        res.json('cant verify')
+    }
+}
 
 
-const index = async(req : Request, res : Response)=>{
+
+const index = async(_req : Request, res : Response)=>{
     try {
         const allProducts = await Store.index();
         res.json(allProducts);
@@ -75,8 +88,8 @@ const create = async(req : Request, res : Response)=>{
 }
 
 const productsRoutes = (app : express.Application)=>{
-    app.get('/products/getAll', index);
-    app.get('/products/getOne/:id', show);
+    app.get('/products/getAll', verifyAuthTokenI, index);
+    app.get('/products/getOne/:id',verifyAuthTokenI, show);
     app.post('/products/createProduct', verifyAuthToken, create);
 }
 

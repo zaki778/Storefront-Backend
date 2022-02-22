@@ -58,7 +58,7 @@ var verifyAuthToken = function (req, res, next) {
         res.json('cant verify');
     }
 };
-var index = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var allProducts, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -122,8 +122,8 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
     });
 }); };
 var productsRoutes = function (app) {
-    app.get('/products/getAll', index);
-    app.get('/products/getOne/:id', show);
+    app.get('/products/getAll', verifyAuthToken, index);
+    app.get('/products/getOne/:id', verifyAuthToken, show);
     app.post('/products/createProduct', verifyAuthToken, create);
 };
 exports.default = productsRoutes;

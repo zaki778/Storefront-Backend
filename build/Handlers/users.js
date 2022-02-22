@@ -131,6 +131,6 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
 var usersRoutes = function (app) {
     app.get('/users/getAllUsers', verifyAuthToken, index);
     app.get('/users/getOne/:id', verifyAuthToken, show);
-    app.post('/users/createUser', create);
+    app.post('/users/createUser', verifyAuthToken, create);
 };
 exports.default = usersRoutes;
